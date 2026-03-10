@@ -1,6 +1,214 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"><!-- =============================
+EASY EDIT SECTION (ONLY CHANGE THESE DETAILS)
+============================= --><script>
 const brideName = "Bride";
 const groomName = "Groom";
 const weddingDate = "December 25, 2026";
 const venueName = "Taj Convention Hall";
 const venueMap = "https://maps.google.com";
-const storyText = "Our journey started...";
+const storyText = "Our journey started with a simple meeting that turned into friendship and slowly blossomed into love. We invite you to celebrate this beautiful chapter of our lives with your blessings.";
+</script><style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins,Arial;background:#fffaf6;color:#333}
+
+header{
+height:100vh;
+background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),url('https://images.unsplash.com/photo-1519741497674-611481863552') center/cover no-repeat;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+padding:20px
+}
+
+h1{font-family:'Playfair Display',serif;font-size:4em;margin:0;letter-spacing:2px}
+header p{font-size:1.2em;margin:10px 0}
+
+.btn{
+margin-top:20px;
+padding:12px 30px;
+border-radius:30px;
+border:none;
+background:white;
+font-weight:600;
+cursor:pointer
+}
+
+section{padding:80px 20px;text-align:center}
+
+.section-title{
+font-family:'Playfair Display',serif;
+font-size:2.5em;
+margin-bottom:30px
+}
+
+.story{max-width:700px;margin:auto;font-size:1.1em;line-height:1.8}
+
+.events{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+max-width:900px;
+margin:auto
+}
+
+.event-card{
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,.08)
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:12px;
+max-width:1000px;
+margin:auto
+}
+
+.gallery img{
+width:100%;
+height:260px;
+object-fit:cover;
+border-radius:12px;
+transition:.4s
+}
+
+.gallery img:hover{transform:scale(1.05)}
+
+.countdown{font-size:1.6em;margin-top:15px}
+
+.map-btn{
+margin-top:15px;
+padding:10px 22px;
+border-radius:25px;
+border:none;
+background:#333;
+color:white;
+cursor:pointer
+}
+
+.rsvp form{display:flex;flex-direction:column;align-items:center}
+
+.rsvp input{
+padding:12px;
+margin:6px;
+width:260px;
+border-radius:8px;
+border:1px solid #ccc
+}
+
+.rsvp button{
+padding:12px 30px;
+border:none;
+margin-top:10px;
+border-radius:25px;
+background:#000;
+color:white;
+cursor:pointer
+}
+
+footer{
+background:#111;
+color:#eee;
+text-align:center;
+padding:30px
+}
+</style></head>
+<body><header>
+<h1 id="coupleNames"></h1>
+<p>We're getting married</p>
+<p id="weddingDateText"></p>
+<div class="countdown" id="countdown"></div>
+<button class="btn" onclick="scrollToSection('story')">View Invitation</button>
+</header><section id="story">
+<div class="section-title">Our Story</div>
+<div class="story" id="storyContent"></div>
+</section><section>
+<div class="section-title">Wedding Events</div>
+<div class="events"><div class="event-card">
+<h3>Mehendi</h3>
+<p>23 December</p>
+<p>6:00 PM</p>
+</div><div class="event-card">
+<h3>Wedding</h3>
+<p id="eventDate"></p>
+<p>10:30 AM</p>
+</div><div class="event-card">
+<h3>Reception</h3>
+<p>26 December</p>
+<p>7:00 PM</p>
+</div></div>
+</section><section>
+<div class="section-title">Gallery</div>
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e">
+<img src="https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d">
+<img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc">
+<img src="https://images.unsplash.com/photo-1519741497674-611481863552">
+</div>
+</section><section>
+<div class="section-title">Venue</div>
+<p id="venueName"></p>
+<button class="map-btn" onclick="openMap()">Open Google Maps</button>
+</section><section class="rsvp">
+<div class="section-title">RSVP</div>
+<form>
+<input type="text" placeholder="Your Name" required>
+<input type="number" placeholder="Number of Guests" required>
+<button type="submit">Confirm Attendance</button>
+</form>
+</section><footer>
+<p>Personal Wedding Invitation</p>
+</footer><script>
+
+// Insert editable details
+
+document.getElementById("coupleNames").innerHTML = brideName + " ❤️ " + groomName;
+document.getElementById("weddingDateText").innerHTML = weddingDate;
+document.getElementById("eventDate").innerHTML = weddingDate;
+document.getElementById("venueName").innerHTML = venueName;
+document.getElementById("storyContent").innerHTML = storyText;
+
+function openMap(){
+window.open(venueMap);
+}
+
+function scrollToSection(id){
+document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+// Countdown
+
+var weddingTime = new Date(weddingDate).getTime();
+
+var x = setInterval(function(){
+
+var now = new Date().getTime();
+var distance = weddingTime - now;
+
+var days = Math.floor(distance/(1000*60*60*24));
+var hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+var minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+
+var text = days+" Days " + hours+" Hours " + minutes+" Minutes";
+
+document.getElementById("countdown").innerHTML = text;
+
+if(distance < 0){
+clearInterval(x);
+document.getElementById("countdown").innerHTML="Wedding Day";
+}
+
+},1000);
+
+</script></body>
+  </html>
